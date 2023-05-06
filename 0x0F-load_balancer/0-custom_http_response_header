@@ -17,7 +17,7 @@ echo 'Hello World!' | sudo tee /var/www/html/index.html
 echo "This page doesn't exist" | sudo tee /var/www/html/404.html
 
 # Add custom header and redirect to a single page
-mods="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.github.com\/MamaKbubu permanent;"
+mods="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.tshegotries.tech\/ permanent;"
 sudo sed -i "s/server_name _;/$mods/" /etc/nginx/sites-available/default
 
 # Configure redirect for 404 error page
