@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Update and install Nginx
+sudo apt update && sudo apt install -y nginx
+
+# Allow incoming traffic on port 80 for Nginx
+sudo ufw allow 'Nginx HTTP'
+
+# Create directories and set appropriate permissions
+sudo mkdir -p /var/www/html
+sudo chmod -R 755 /var/www
+
+# Create a webpage for index.html
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+
+# Create a webpage for 404 error page
+echo "This page doesn't exist" | sudo tee /var/www/html/404.html
+
+# Add custom header and redirect to a single page
+mods="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.github.com\/MamaKbubu permanent;"
+sudo sed -i "s/server_name _;/$mods/" /etc/nginx/sites-available/default
+
+# Configure redirect for 404 error page
+mod="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/$mod/" /etc/nginx/sites-available/default
+
+# Restart the web server after updating the settings
+sudo service nginx restart
+
