@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-
-'''
-Recursive function that queries the Reddit API,
-parses the title of all hot articles,
-and prints a sorted count of given keywords
-'''
+""" raddit api"""
 
 import json
 import requests
