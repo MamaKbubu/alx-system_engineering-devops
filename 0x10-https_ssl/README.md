@@ -1,2 +1,1 @@
-Im redoing this hopefully with some understanding
-
+THis is fun very confusing stuff
